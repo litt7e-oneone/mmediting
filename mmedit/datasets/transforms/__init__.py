@@ -11,7 +11,7 @@ from .crop import (CenterCropLongEdge, Crop, CropAroundCenter, CropAroundFg,
                    RandomResizedCrop)
 from .fgbg import (CompositeFg, MergeFgAndBg, PerturbBg, RandomJitter,
                    RandomLoadResizeBg)
-from .formatting import PackEditInputs
+from .formatting import PackEditInputs, PackEditInputsWithIndex
 from .generate_assistant import (GenerateCoordinateAndCell,
                                  GenerateFacialHeatmap)
 from .generate_frame_indices import (GenerateFrameIndices,
@@ -37,7 +37,7 @@ __all__ = [
     'GenerateFrameIndices', 'GenerateFrameIndiceswithPadding',
     'GenerateSegmentIndices', 'GetMaskedImage', 'GetSpatialDiscountMask',
     'MATLABLikeResize', 'MirrorSequence', 'ModCrop', 'Normalize',
-    'PackEditInputs', 'PairedRandomCrop', 'RandomAffine', 'RandomBlur',
+    'PackEditInputs', 'PackEditInputsWithIndex', 'PairedRandomCrop', 'RandomAffine', 'RandomBlur',
     'RandomDownSampling', 'RandomJPEGCompression', 'RandomMaskDilation',
     'RandomNoise', 'RandomResize', 'RandomResizedCrop', 'RandomRotation',
     'RandomTransposeHW', 'RandomVideoCompression', 'RescaleToZeroOne',

@@ -12,8 +12,8 @@ from mmedit.utils import print_colored_log
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a model')
-    parser.add_argument('--config', default='private_projects/singan/config/collision1.py', help='train config file path')
-    parser.add_argument('--work-dir',default='private_projects/singan/exp1', help='the dir to save logs and models')
+    parser.add_argument('--config', default='private_projects/msingan/train_demo_config.py', help='train config file path')
+    parser.add_argument('--work-dir',default='private_projects/msingan/exp1', help='the dir to save logs and models')
     parser.add_argument(
         '--resume', action='store_true', help='Whether to resume checkpoint.')
     parser.add_argument(

@@ -8,6 +8,7 @@ from scipy.ndimage.interpolation import map_coordinates
 from collections import defaultdict
 import random
 
+# 对局部图进行弹性变换等，使其生成随机性的图
 
 def elastic_transform(image, alpha, sigma,
                       alpha_affine, random_state=None):

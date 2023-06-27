@@ -1,6 +1,7 @@
 import cv2
 import os
 
+# 将生成的局部path贴回原图
 
 def splitext(file_name):
     """

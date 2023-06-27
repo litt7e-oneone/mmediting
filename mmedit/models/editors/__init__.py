@@ -49,6 +49,7 @@ from .real_esrgan import RealESRGAN, UNetDiscriminatorWithSpectralNorm
 from .restormer import Restormer
 from .sagan import SAGAN
 from .singan import SinGAN
+from .msingan import MSinGAN
 from .srcnn import SRCNNNet
 from .srgan import SRGAN, ModifiedVGG, MSRResNet
 from .stable_diffusion import StableDiffusion
@@ -82,7 +83,7 @@ __all__ = [
     'LIIF', 'MLPRefiner', 'PlainRefiner', 'PlainDecoder', 'FBAResnetDilated',
     'FBADecoder', 'WGANGP', 'CycleGAN', 'SAGAN', 'LSGAN', 'GGAN', 'Pix2Pix',
     'StyleGAN1', 'StyleGAN2', 'StyleGAN3', 'BigGAN', 'DCGAN',
-    'ProgressiveGrowingGAN', 'SinGAN', 'AblatedDiffusionModel',
+    'ProgressiveGrowingGAN', 'SinGAN','MSinGAN', 'AblatedDiffusionModel',
     'DiscoDiffusion', 'IDLossModel', 'PESinGAN', 'MSPIEStyleGAN2',
     'StyleGAN3Generator', 'InstColorization', 'NAFBaseline',
     'NAFBaselineLocal', 'NAFNet', 'NAFNetLocal', 'DenoisingUnet',

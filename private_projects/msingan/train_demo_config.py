@@ -1,30 +1,31 @@
-_base_ = ['../../../configs/_base_/gen_default_runtime.py']
+_base_ = ['../../configs/_base_/gen_default_runtime.py']
 
 # MODEL WRAPPER
 model_wrapper_cfg = dict(find_unused_parameters=True)
 
 # MODEL
+input_channels = 1  # 3 for 'color' ; 1 for 'grayscale'
 num_scales = 10  # start from zero
 generator_steps = 3
 discriminator_steps = 3
-iters_per_scale = 1000
+iters_per_scale = 2000
 # NOTE: add by user, e.g.:
 # test_pkl_data = ('./data/singan/singan_fis_20210406_201006-860d91b6.pkl')
 test_pkl_data = None
 
 model = dict(
-    type='SinGAN',
+    type='MSinGAN',
     data_preprocessor=dict(
-        type='EditDataPreprocessor', non_image_keys=['input_sample']),
+        type='EditDataPreprocessor', non_image_keys=['input_sample', 'input_index']),
     generator=dict(
-        type='SinGANMultiScaleGenerator',
-        in_channels=1,
-        out_channels=1,
+        type='MSinGANMultiScaleGenerator',
+        in_channels=input_channels,
+        out_channels=input_channels,
         num_scales=num_scales,
     ),
     discriminator=dict(
-        type='SinGANMultiScaleDiscriminator',
-        in_channels=1,
+        type='MSinGANMultiScaleDiscriminator',
+        in_channels=input_channels,
         num_scales=num_scales,
     ),
     noise_weight_init=0.1,
@@ -36,14 +37,14 @@ model = dict(
     num_scales=num_scales)
 
 # DATA
-min_size = 45
+min_size = 64
 max_size = 800
-dataset_type = 'SinGANDataset'
-data_root = 'data/demo/000000000000200106_4_3_TA07_02_20210903115617869_00_640_640_1440_1440.jpg'
+dataset_type = 'MSinGANDataset'
+data_root = './data/demo'
 
 pipeline = [
     dict(
-        type='PackEditInputs',
+        type='PackEditInputsWithIndex',
         keys=[f'real_scale{i}' for i in range(num_scales + 1)] + ['input_sample'])
 ]
 dataset = dict(
@@ -51,14 +52,15 @@ dataset = dict(
     data_root=data_root,
     min_size=min_size,
     max_size=max_size,
-    scale_factor_init=0.9,
-    pipeline=pipeline)
+    scale_factor_init=0.75,
+    pipeline=pipeline,
+    image_format='grayscale')  # either 'color' or 'grayscale'
 
 train_dataloader = dict(
     batch_size=1,
     num_workers=0,
     dataset=dataset,
-    sampler=None,
+    sampler= dict(type='InfiniteSampler', shuffle=True),  # dict(type='InfiniteSampler', shuffle=True)
     persistent_workers=False)
 
 # TRAINING
@@ -81,11 +83,9 @@ custom_hooks = [
         data_name_list=['noise_weights', 'fixed_noises', 'curr_stage']),
     dict(
         type='GenVisualizationHook',
-        interval=total_iters, #30000,
+        interval=5000,
         fixed_input=True,
-        n_samples=625,
-        n_row=25,
-        vis_kwargs_list=dict(type='SinGAN', name='fish'))
+        vis_kwargs_list=dict(type='SinGAN', name='DEMO'))
 ]
 
 # NOTE: SinGAN do not support val_loop and test_loop, please use
